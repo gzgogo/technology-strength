@@ -13,12 +13,14 @@ div {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 .overview .bg {
   width: 100%;
   height: 100%;
-  background: url(assets/images/bg1.png) no-repeat center center;
-  background-size: 100% 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .overview .content {
   width: 1609px;
@@ -31,6 +33,7 @@ div {
 .overview .content .pathway {
   width: 100%;
   height: 100%;
+  transform-origin: left top;
 }
 .overview .content .ball {
   position: absolute;
@@ -68,11 +71,12 @@ div {
 }
 .overview .content .title {
   position: absolute;
-  opacity: 0.5;
+  opacity: 0.8;
 }
 .overview .content .title.step1 {
   left: 210px;
   top: -50px;
+  opacity: 1;
 }
 .overview .content .title.step2 {
   left: 700px;
@@ -83,7 +87,7 @@ div {
   top: -50px;
 }
 .overview .content .title.step4 {
-  left: 110px;
+  left: 1110px;
   top: 700px;
 }
 .overview .content .title.step5 {
@@ -91,7 +95,7 @@ div {
   top: 700px;
 }
 .overview .content .title.step6 {
-  left: 1110px;
+  left: 110px;
   top: 700px;
 }
 .detail {
@@ -100,9 +104,7 @@ div {
   position: absolute;
   left: 0;
   top: 0;
-  background: url(assets/images/bg2.png) no-repeat center center;
-  background-size: 100% 100%;
-  transform-origin: 500px 400px;
+  transform-origin: 20% 30%;
   -webkit-transform: scale(0, 0);
   -moz-transform: scale(0, 0);
   -ms-transform: scale(0, 0);
@@ -115,14 +117,18 @@ div {
   position: absolute;
   left: 0;
   top: 0;
-}
-.detail .bg.step1 {
-  background: url(assets/images/step1-detail.png) no-repeat center center;
-  background-size: 100% 100%;
+  background-color: #437aed;
+  opacity: 0.5;
 }
 .detail .intro {
   position: absolute;
-  left: 0;
+  left: 0px;
   top: 200px;
-  color: white;
+  opacity: 0;
+}
+.detail .image {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  opacity: 0;
 }

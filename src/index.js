@@ -45,12 +45,18 @@ const POINTS = [
 // });
 
 const DURATION = {
-  ballSlide: 1500,
+  ballSlide: 1000,
   turnOn: 1000,
   turnOff: 1000,
-  enlarge: 1000,
-  textSlideIn: 1000,
-  textSlideOut: 1000
+  scaleOutOverview: 1000,
+  scaleOutDetail: 0,
+  scaleInDetail: 0,
+  slideInText: 1000,
+  slideOutText: 1000,
+  slideInImage: 1000,
+  slideOutImage: 1000,
+  remain: 3000,
+  scaleOverview: 1000
 };
 
 function clone(obj) {
@@ -59,170 +65,254 @@ function clone(obj) {
 }
 
 
+var overviewBg = document.getElementById('overview-bg');
 var ball = document.getElementById('ball');
+var overview = document.getElementById('pathway');
 var light1 = document.getElementById('light1');
 var light2 = document.getElementById('light2');
 var light3 = document.getElementById('light3');
 var light4 = document.getElementById('light4');
 var light5 = document.getElementById('light5');
 var light6 = document.getElementById('light6');
+var title1 = document.getElementById('title1');
+var title2 = document.getElementById('title2');
+var title3 = document.getElementById('title3');
+var title4 = document.getElementById('title4');
+var title5 = document.getElementById('title5');
+var title6 = document.getElementById('title6');
 var detail = document.getElementById('detail');
-var stepBg1 = document.getElementById('step1-bg');
 var stepIntro1 = document.getElementById('step1-intro');
+var stepIntro2 = document.getElementById('step2-intro');
+var stepIntro3 = document.getElementById('step3-intro');
+var stepIntro4 = document.getElementById('step4-intro');
+var stepIntro5 = document.getElementById('step5-intro');
+var stepIntro6 = document.getElementById('step6-intro');
+var stepImage1 = document.getElementById('step1-image');
+var stepImage2 = document.getElementById('step2-image');
+var stepImage3 = document.getElementById('step3-image');
+var stepImage4 = document.getElementById('step4-image');
+var stepImage5 = document.getElementById('step5-image');
+var stepImage6 = document.getElementById('step6-image');
 
+//region overview
 //region 数据采集->数据加工
 // 小球滑动
 var tweenPath1 = createPathTween(ball, clone(POINTS[0]), clone(POINTS[1]));
 // 点灭数据采集
 // TODO...
-var tweenTurnOffLight1 = createTurnOffTween(light1);
+var tweenTurnOffLight1 = createTurnOffImageTween(light1);
+var tweenTurnOffTitle1 = createTurnOffTitleTween(title1);
 // 点亮数据加工
-// 点亮标题
-// TODO...
-var tweenTurnOnLight2 = createTurnOnTween(light2);
+var tweenTurnOnTitle2 = createTurnOnTitleTween(title2);
+var tweenTurnOnLight2 = createTurnOnImageTween(light2);
 //endregion
 
 //region 数据加工->数据处理
 // 小球滑动
 var tweenPath2 = createPathTween(ball, clone(POINTS[2]), clone(POINTS[3]));
 // 点灭数据加工
-// 点灭标题
-// TODO...
-var tweenTurnOffLight2 = createTurnOffTween(light2);
+var tweenTurnOffTitle2 = createTurnOffTitleTween(title2);
+var tweenTurnOffLight2 = createTurnOffImageTween(light2);
 // 点亮数据处理
 // 点亮标题
 // TODO...
-var tweenTurnOnLight3 = createTurnOnTween(light3);
+var tweenTurnOnTitle3 = createTurnOnTitleTween(title3);
+var tweenTurnOnLight3 = createTurnOnImageTween(light3);
 //endregion
 
 //region 数据处理->数据应用
 // 小球滑动
 var tweenPath3 = createPathTween(ball, clone(POINTS[4]), clone(POINTS[5]));
 // 点灭数据处理
-// 点灭标题
-// TODO...
-var tweenTurnOffLight3 = createTurnOffTween(light3);
+var tweenTurnOffTitle3 = createTurnOffTitleTween(title3);
+var tweenTurnOffLight3 = createTurnOffImageTween(light3);
 // 点亮数据应用
-// 点亮标题
-// TODO...
-var tweenTurnOnLight4 = createTurnOnTween(light4);
+var tweenTurnOnTitle4 = createTurnOnTitleTween(title4);
+var tweenTurnOnLight4 = createTurnOnImageTween(light4);
 //endregion
 
 //region 数据应用->运营管理;
 // 小球滑动
 var tweenPath4 = createPathTween(ball, clone(POINTS[6]), clone(POINTS[7]));
 // 点灭数据应用
-// 点灭标题
-// TODO...
-var tweenTurnOffLight4 = createTurnOffTween(light4);
+var tweenTurnOffTitle4 = createTurnOffTitleTween(title4);
+var tweenTurnOffLight4 = createTurnOffImageTween(light4);
 // 点亮运营管理
-// 点亮标题
-// TODO...
-var tweenTurnOnLight5 = createTurnOnTween(light5);
+var tweenTurnOnTitle5 = createTurnOnTitleTween(title5);
+var tweenTurnOnLight5 = createTurnOnImageTween(light5);
 //endregion
 
 //region 运营管理->统计分析
 // 小球滑动
 var tweenPath5 = createPathTween(ball, clone(POINTS[8]), clone(POINTS[9]));
 // 点灭运营管理
-// 点灭标题
-// TODO...
-var tweenTurnOffLight5 = createTurnOffTween(light5);
+var tweenTurnOffTitle5 = createTurnOffTitleTween(title5);
+var tweenTurnOffLight5 = createTurnOffImageTween(light5);
 // 点亮统计分析
-// 点亮标题
-// TODO...
-var tweenTurnOnLight6 = createTurnOnTween(light6);
+var tweenTurnOnTitle6 = createTurnOnTitleTween(title6);
+var tweenTurnOnLight6 = createTurnOnImageTween(light6);
 //endregion
 
 //region 统计分析->数据采集
 // 小球滑动
 var tweenPath6 = createPathTween(ball, clone(POINTS[10]), clone(POINTS[11]));
 // 点灭统计分析
-// 点灭标题
-// TODO...
-var tweenTurnOffLight6 = createTurnOffTween(light6);
+var tweenTurnOffTitle6 = createTurnOffTitleTween(title6);
+var tweenTurnOffLight6 = createTurnOffImageTween(light6);
 // 点亮数据采集
-// 点亮标题
-// TODO...
-var tweenTurnOnLight1 = createTurnOnTween(light1);
+var tweenTurnOnTitle1 = createTurnOnImageTween(title1);
+var tweenTurnOnLight1 = createTurnOnImageTween(light1);
+//endregion
 //endregion
 
-//region 放大背景（以左上角为中心）
-// TODO...
+//region 放大概览背景
+var tweenScaleOutOverview = new TWEEN.Tween({ x: 1 })
+  .to({ x: 3 }, DURATION.scaleOutOverview)
+  // .easing(TWEEN.Easing.Elastic.InOut)
+  .onStart(function () {
+    overviewBg.style.opacity = 0;
+    light1.style.opacity = 0;
+    light2.style.opacity = 0;
+    light3.style.opacity = 0;
+    light4.style.opacity = 0;
+    light5.style.opacity = 0;
+    light6.style.opacity = 0;
+  })
+  .onUpdate(function() {
+    overview.style.webkitTransform = 'scale(' + this.x + ', ' + this.x + ')';
+  })
+  .onComplete(function () {
+    overview.style.opacity = 0;
+  });
 //endregion
 
-//region 显示详情背景
-// TODO...
+//region 缩小概览背景
+var tweenScaleInOverview = new TWEEN.Tween({ x: 3 })
+  .to({ x: 1 }, DURATION.scaleInOverview)
+  // .easing(TWEEN.Easing.Elastic.InOut)
+  .onStart(function () {
+    overview.style.opacity = 1;
+  })
+  .onUpdate(function() {
+    overview.style.webkitTransform = 'scale(' + this.x + ', ' + this.x + ')';
+  })
+  .onComplete(function () {
+    overviewBg.style.opacity = 1;
+  });
 //endregion
 
-//region 点亮数据采集详情
-// 点亮文本
-// TODO...
-// 点亮图片
-// TODO...
-//endregion
-
-// 移动背景到数据加工
-
-//region 显示详情
-var tweenDetailBg = new TWEEN.Tween({ x: 0, opacity: 0.8 })
-  .to({ x: 1, opacity: 1 }, 1000)
+//region 放大详情背景
+var tweenScaleOutDetail = new TWEEN.Tween({ x: 0, opacity: 0 })
+  .to({ x: 1, opacity: 0.7 }, DURATION.scaleOutDetail)
   // .easing(TWEEN.Easing.Elastic.InOut)
-  .onUpdate(function() {
-    detail.style.opacity = this.opacity;
-    detail.style.webkitTransform = 'scale(' + this.x + ', ' + this.x + ')';
-  });
-
-var tweenShowStepIntro1 = new TWEEN.Tween({ x: -100 })
-  .to({ x: 100 }, 1000)
-  // .easing(TWEEN.Easing.Elastic.InOut)
-  .onUpdate(function() {
-    stepIntro1.style.webkitTransform = 'translateX(' + this.x + 'px)';
-  });
-
-var tweenHideStepBg1 = new TWEEN.Tween({ x: 0 })
-  .to({ x: -2000 }, 600)
-  .delay(3000)
-  // .easing(TWEEN.Easing.Elastic.InOut)
-  .onUpdate(function() {
-    stepBg1.style.webkitTransform = 'translateX(' + this.x + 'px)';
-  });
-
-var tweenHideStepIntro1 = new TWEEN.Tween({ x: 100 })
-  .to({ x: -1000 }, 400)
-  .delay(3300)
-  // .easing(TWEEN.Easing.Elastic.InOut)
-  .onUpdate(function() {
-    stepIntro1.style.webkitTransform = 'translateX(' + this.x + 'px)';
-  });
-
-var tweenHideDetailBg = new TWEEN.Tween({ x: 1, opacity: 1 })
-  .to({ x: 0, opacity: 0.8 }, 1000)
-  // .easing(TWEEN.Easing.Elastic.InOut)
+  .onStart(function () {
+    // overview.style.opacity = 0;
+  })
   .onUpdate(function() {
     detail.style.opacity = this.opacity;
     detail.style.webkitTransform = 'scale(' + this.x + ', ' + this.x + ')';
   });
 //endregion
 
-tweenPath1.chain(tweenTurnOffLight1, tweenTurnOnLight2);
+//region detail
+//region 显示详情1
+// 滑入
+var tweenIntroSlideIn1 = createIntroSlideInTween(stepIntro1);
+var tweenImageSlideIn1 = createImageSlideInTween(stepImage1);
+// 滑出
+var tweenIntroSlideOut1 = createIntroSlideOutTween(stepIntro1);
+var tweenImageSlideOut1 = createImageSlideOutTween(stepImage1);
+//endregion
+
+//region 显示详情2
+// 滑入
+var tweenIntroSlideIn2 = createIntroSlideInTween(stepIntro2);
+var tweenImageSlideIn2 = createImageSlideInTween(stepImage2);
+// 滑出
+var tweenIntroSlideOut2 = createIntroSlideOutTween(stepIntro2);
+var tweenImageSlideOut2 = createImageSlideOutTween(stepImage2);
+//endregion
+
+//region 显示详情3
+// 滑入
+var tweenIntroSlideIn3 = createIntroSlideInTween(stepIntro3);
+var tweenImageSlideIn3 = createImageSlideInTween(stepImage3);
+// 滑出
+var tweenIntroSlideOut3 = createIntroSlideOutTween(stepIntro3);
+var tweenImageSlideOut3 = createImageSlideOutTween(stepImage3);
+//endregion
+
+//region 显示详情4
+// 滑入
+var tweenIntroSlideIn4 = createIntroSlideInTween(stepIntro4);
+var tweenImageSlideIn4 = createImageSlideInTween(stepImage4);
+// 滑出
+var tweenIntroSlideOut4 = createIntroSlideOutTween(stepIntro4);
+var tweenImageSlideOut4 = createImageSlideOutTween(stepImage4);
+//endregion
+
+//region 显示详情5
+// 滑入
+var tweenIntroSlideIn5 = createIntroSlideInTween(stepIntro5);
+var tweenImageSlideIn5 = createImageSlideInTween(stepImage5);
+// 滑出
+var tweenIntroSlideOut5 = createIntroSlideOutTween(stepIntro5);
+var tweenImageSlideOut5 = createImageSlideOutTween(stepImage5);
+//endregion
+
+//region 显示详情6
+// 滑入
+var tweenIntroSlideIn6 = createIntroSlideInTween(stepIntro6);
+var tweenImageSlideIn6 = createImageSlideInTween(stepImage6);
+// 滑出
+var tweenIntroSlideOut6 = createIntroSlideOutTween(stepIntro6);
+var tweenImageSlideOut6 = createImageSlideOutTween(stepImage6);
+//endregion
+//endregion
+
+//region 缩小详情背景
+var tweenScaleInDetail = new TWEEN.Tween({ x: 3 })
+  .to({ x: 0 }, DURATION.scaleInDetail)
+  // .easing(TWEEN.Easing.Elastic.InOut)
+  .onStart(function () {
+  })
+  .onUpdate(function() {
+    detail.style.webkitTransform = 'scale(' + this.x + ', ' + this.x + ')';
+  })
+  .onComplete(function () {
+  });
+//endregion
+
+tweenPath1.chain(tweenTurnOffLight1, tweenTurnOffTitle1, tweenTurnOnTitle2, tweenTurnOnLight2);
 tweenTurnOnLight2.chain(tweenPath2);
-tweenPath2.chain(tweenTurnOffLight2, tweenTurnOnLight3);
+tweenPath2.chain(tweenTurnOffLight2, tweenTurnOffTitle2, tweenTurnOnTitle3, tweenTurnOnLight3);
 tweenTurnOnLight3.chain(tweenPath3);
-tweenPath3.chain(tweenTurnOffLight3, tweenTurnOnLight4);
+tweenPath3.chain(tweenTurnOffLight3, tweenTurnOffTitle3, tweenTurnOnTitle4, tweenTurnOnLight4);
 tweenTurnOnLight4.chain(tweenPath4);
-tweenPath4.chain(tweenTurnOffLight4, tweenTurnOnLight5);
+tweenPath4.chain(tweenTurnOffLight4, tweenTurnOffTitle4, tweenTurnOnTitle5, tweenTurnOnLight5);
 tweenTurnOnLight5.chain(tweenPath5);
-tweenPath5.chain(tweenTurnOffLight5, tweenTurnOnLight6);
+tweenPath5.chain(tweenTurnOffLight5, tweenTurnOffTitle5, tweenTurnOnTitle6, tweenTurnOnLight6);
 tweenTurnOnLight6.chain(tweenPath6);
-tweenPath6.chain(tweenTurnOffLight6, tweenTurnOnLight1);
-tweenTurnOnLight1.chain(tweenPath1);
+tweenPath6.chain(tweenScaleOutOverview, tweenScaleOutDetail);
+tweenScaleOutDetail.chain(tweenIntroSlideIn1, tweenImageSlideIn1);
+tweenImageSlideIn1.chain(tweenIntroSlideOut1, tweenImageSlideOut1);
+tweenImageSlideOut1.chain(tweenIntroSlideIn2, tweenImageSlideIn2);
+tweenImageSlideIn2.chain(tweenIntroSlideOut2, tweenImageSlideOut2);
+tweenImageSlideOut2.chain(tweenIntroSlideIn3, tweenImageSlideIn3);
+tweenImageSlideIn3.chain(tweenIntroSlideOut3, tweenImageSlideOut3);
 
-// tweenPath1.chain(tweenLighten1);
-// tweenLighten1.chain(tweenPath2);
-// tweenPath2.chain(tweenDetailBg);
-// tweenDetailBg.chain(tweenShowStepIntro1);
-// tweenShowStepIntro1.chain(tweenHideStepBg1, tweenHideStepIntro1);
+tweenImageSlideOut3.chain(tweenIntroSlideIn4, tweenImageSlideIn4);
+tweenImageSlideIn4.chain(tweenIntroSlideOut4, tweenImageSlideOut4);
+
+tweenImageSlideOut4.chain(tweenIntroSlideIn5, tweenImageSlideIn5);
+tweenImageSlideIn5.chain(tweenIntroSlideOut5, tweenImageSlideOut5);
+
+tweenImageSlideOut5.chain(tweenIntroSlideIn6, tweenImageSlideIn6);
+tweenImageSlideIn6.chain(tweenIntroSlideOut6, tweenImageSlideOut6);
+tweenImageSlideOut6.chain(tweenScaleInDetail, tweenScaleInOverview);
+tweenScaleInOverview.chain(tweenPath1);
+
+
 
 tweenPath1.start();
 
@@ -265,10 +355,62 @@ function createLightenTween(element, start, end, duration) {
     });
 }
 
-function createTurnOnTween(element) {
+function createTurnOnImageTween(element) {
   return createLightenTween(element, 0, 1, DURATION.turnOn);
 }
 
-function createTurnOffTween(element) {
+function createTurnOffImageTween(element) {
   return createLightenTween(element, 1, 0, DURATION.turnOff);
+}
+
+function createTurnOnTitleTween(element) {
+  return createLightenTween(element, 0.2, 1, DURATION.turnOn);
+}
+
+function createTurnOffTitleTween(element) {
+  return createLightenTween(element, 1, 0.2, DURATION.turnOff);
+}
+
+function createIntroSlideInTween(element) {
+  return new TWEEN.Tween({ x: 0 })
+    .to({ x: 100 }, DURATION.slideInText)
+    // .easing(TWEEN.Easing.Elastic.InOut)
+    .onStart(function () {
+      element.style.opacity = 1;
+    })
+    .onUpdate(function() {
+      element.style.webkitTransform = 'translateX(' + this.x + 'px)';
+    });
+}
+
+function createIntroSlideOutTween(element) {
+  return new TWEEN.Tween({ x: 100 })
+    .to({ x: -800 }, DURATION.slideOutText)
+    // .easing(TWEEN.Easing.Elastic.InOut)
+    .delay(DURATION.remain)
+    .onUpdate(function() {
+      element.style.webkitTransform = 'translateX(' + this.x + 'px)';
+    });
+}
+
+function createImageSlideInTween(element) {
+  return new TWEEN.Tween({ x: -200 })
+    .to({ x: 0 }, DURATION.slideInImage)
+    // .easing(TWEEN.Easing.Elastic.InOut)
+    .onStart(function () {
+      element.style.opacity = 1;
+    })
+    .onUpdate(function() {
+      element.style.webkitTransform = 'translateY(' + this.x + 'px)';
+    });
+}
+
+function createImageSlideOutTween(element) {
+  return new TWEEN.Tween({ x: 100 })
+    .to({ x: -1000 }, DURATION.slideOutImage)
+    // .easing(TWEEN.Easing.Elastic.InOut)
+    .delay(DURATION.remain)
+    .onUpdate(function() {
+      element.style.webkitTransform = 'translateY(' + this.x + 'px)';
+    });
 }
